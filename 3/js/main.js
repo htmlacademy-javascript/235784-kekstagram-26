@@ -25,11 +25,8 @@ const createTestComments = function (id, avatar, message, name) {
 const photos = [];
 
 for (let i = 0; i < 25; i++) {
-  photos.push(new createTestObject(i,i,descriptions[getRandom(0,descriptions.length)],getRandom(15,200),new createTestComments(getRandom(1,135),getRandom(1,6),messages[getRandom(0,messages.length-1)],nicknames[getRandom(0,nicknames.length)])));
+  photos.push(new createTestObject(i,i,descriptions[getRandom(0,descriptions.length-1)],getRandom(15,200),new createTestComments(getRandom(1,135),getRandom(1,6),messages[getRandom(0,messages.length-1)],nicknames[getRandom(0,nicknames.length-1)])));
 }
-
-console.log(photos);
-
 /*
 В файле main.js на основе написанных по заданию ранее вспомогательных функций напишите необходимые функции для создания массива из 25 сгенерированных объектов.
 Каждый объект массива — описание фотографии, опубликованной пользователем.
