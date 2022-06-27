@@ -24,28 +24,19 @@ const createTestComments = function (id, avatar, message, name) {
 
 const photos = [];
 
+const uniqueNumber = () => {
+  const comments = [];
+  for (let i = 0; i < getRandom(1,3); i++) {
+    comments.push(new createTestComments(getRandom(1,135), getRandom(1,6),  messages[getRandom(0,messages.length-1)], nicknames[getRandom(0,nicknames.length-1)]));
+  }
+  return comments;
+};
+
 for (let i = 0; i < 25; i++) {
-  photos.push(new createTestObject(i,i,descriptions[getRandom(0,descriptions.length-1)],getRandom(15,200),new createTestComments(getRandom(1,135),getRandom(1,6),messages[getRandom(0,messages.length-1)],nicknames[getRandom(0,nicknames.length-1)])));
+  photos.push(new createTestObject(
+    i+1,
+    i+1,
+    descriptions[getRandom(0,descriptions.length-1)],
+    getRandom(15,200),
+    uniqueNumber()));
 }
-/*
-В файле main.js на основе написанных по заданию ранее вспомогательных функций напишите необходимые функции для создания массива из 25 сгенерированных объектов.
-Каждый объект массива — описание фотографии, опубликованной пользователем.
-
-1. Функция генерации объектов.
-2. Прототип для создания объекта.
-
-Структура объекта:
-1. id - число от 1 до 25 без повторений.
-2. url - адрес картинки вида photos/{{i}} где {{i}} число от 1 до 25
-3. description - описание фото.
-4. likes - число лайков от 15 до 200
-5. comments - массив объектов - список комментариев.
-
-{
-  id: 135,
-  avatar: 'img/avatar-6.svg',
-  message: 'В целом всё неплохо. Но не всё.',
-  name: 'Артём',
-}
- */
-
