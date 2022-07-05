@@ -49,9 +49,8 @@ document.querySelector('.big-picture__cancel').addEventListener('click', () => {
   document.querySelector('.big-picture').classList.add('hidden');
 });
 
-window.addEventListener('keydown',  (evt) => {
+document.querySelector('.big-picture').addEventListener('keydown',  (evt) => {
   if(evt.keyCode === 27) {
-    console.log('2');
     document.body.classList.remove('modal-open');
     document.querySelector('.big-picture').classList.add('hidden');
   }
