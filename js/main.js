@@ -2,6 +2,7 @@
 import {getRandom} from './util.js';
 import {createTestObject, createTestComments} from './create.js';
 import {rendering} from './rendering.js';
+import {renderPopup} from './renderPopup.js';
 
 const nicknames = ['Xen','Antik','Chel','Zakat','Печенька','Чешир','Alukard','СуперВасяxXx','Куница','Че'];
 const descriptions = ['Описание 1', 'Описание 2','Описание 3','Описание 4','Описание 5'];
@@ -35,3 +36,24 @@ for (let i = 0; i < 25; i++) {
 for (let i = 0; i < photos.length; i++) {
   rendering(photos[i]);
 }
+
+const photo = document.querySelectorAll('.picture');
+for (let i = 0; i < photos.length; i++) {
+  photo[i].addEventListener('click', () => {
+    renderPopup(photos[i]);
+  });
+}
+
+document.querySelector('.big-picture__cancel').addEventListener('click', () => {
+  document.body.classList.remove('modal-open');
+  document.querySelector('.big-picture').classList.add('hidden');
+});
+
+window.addEventListener('keydown',  (evt) => {
+  if(evt.keyCode === 27) {
+    console.log('2');
+    document.body.classList.remove('modal-open');
+    document.querySelector('.big-picture').classList.add('hidden');
+  }
+});
+
