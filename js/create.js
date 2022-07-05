@@ -1,6 +1,6 @@
 const createTestObject = function (id, url, description, likes, comments) {
   this.id = id;
-  this.url = `photos${  url  }.jpg`;
+  this.url = `photos/${  url  }.jpg`;
   this.description = description;
   this.likes = likes;
   this.comments = comments;

@@ -1,6 +1,7 @@
 /* Функция для получения случайного числа из диапазона */
 import {getRandom} from './util.js';
 import {createTestObject, createTestComments} from './create.js';
+import {rendering} from './rendering.js';
 
 const nicknames = ['Xen','Antik','Chel','Zakat','Печенька','Чешир','Alukard','СуперВасяxXx','Куница','Че'];
 const descriptions = ['Описание 1', 'Описание 2','Описание 3','Описание 4','Описание 5'];
@@ -29,4 +30,8 @@ for (let i = 0; i < 25; i++) {
     descriptions[getRandom(0,descriptions.length-1)],
     getRandom(15,200),
     uniqueNumber()));
+}
+
+for (let i = 0; i < photos.length; i++) {
+  rendering(photos[i]);
 }
