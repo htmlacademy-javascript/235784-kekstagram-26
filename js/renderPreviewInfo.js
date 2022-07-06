@@ -2,7 +2,7 @@ const pictures = document.querySelector('.pictures');
 const pictureItem = document.querySelector('#picture').content.querySelector('.picture');
 const template = document.createDocumentFragment();
 
-const rendering = function (renderObjects) {
+const renderPreviewInfo = function (renderObjects) {
   const imageItem = pictureItem.cloneNode(true);
   imageItem.querySelector('.picture__img').src = renderObjects.url;
   imageItem.querySelector('.picture__likes').textContent = renderObjects.likes;
@@ -12,8 +12,8 @@ const rendering = function (renderObjects) {
 
 /*Сначала написал так, но увидел требование в ТЗ что нужно использовать document fragment
   const pictureBlock = document.querySelector('.pictures');
-  const rendering = function (renderObjects) {
-    const renderingItem = `
+  const renderPreviewInfo = function (renderObjects) {
+    const renderPreviewInfoItem = `
      <a href="#" class="picture">
         <img class="picture__img" src="${renderObjects.url}" width="182" height="182" alt="Случайная фотография">
         <p class="picture__info">
@@ -22,9 +22,9 @@ const rendering = function (renderObjects) {
         </p>
       </a>
     `;
-    pictureBlock.innerHTML += renderingItem;
+    pictureBlock.innerHTML += renderPreviewInfoItem;
   };
 */
 
 
-export {rendering};
+export {renderPreviewInfo};

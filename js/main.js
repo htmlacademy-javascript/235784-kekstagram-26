@@ -1,13 +1,12 @@
 /* Функция для получения случайного числа из диапазона */
 import {getRandom} from './util.js';
 import {createTestObject, createTestComments} from './create.js';
-import {rendering} from './rendering.js';
+import {renderPreviewInfo} from './renderPreviewInfo.js';
 import {renderPopup} from './renderPopup.js';
 import {nicknames,descriptions,messages} from './arrays.js';
 
 const ids = [];
 const photos = [];
-const photo = document.querySelectorAll('.picture');
 
 /*Генерация псевдо-данных*/
 const uniqueNumber = () => {
@@ -38,8 +37,10 @@ for (let i = 0; i < 25; i++) {
 }
 
 for (let i = 0; i < photos.length; i++) {
-  rendering(photos[i]);
+  renderPreviewInfo(photos[i]);
 }
+
+const photo = document.querySelectorAll('.picture');
 
 /*Открытие popup по клику на фото-превью*/
 for (let i = 0; i < photos.length; i++) {
