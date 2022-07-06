@@ -10,7 +10,7 @@ const rendering = function (renderObjects) {
   pictures.appendChild(template.appendChild(imageItem));
 };
 
-/*
+/*Сначала написал так, но увидел требование в ТЗ что нужно использовать document fragment
   const pictureBlock = document.querySelector('.pictures');
   const rendering = function (renderObjects) {
     const renderingItem = `

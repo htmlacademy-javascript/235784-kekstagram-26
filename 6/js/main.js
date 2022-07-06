@@ -3,13 +3,13 @@ import {getRandom} from './util.js';
 import {createTestObject, createTestComments} from './create.js';
 import {rendering} from './rendering.js';
 import {renderPopup} from './renderPopup.js';
+import {nicknames,descriptions,messages} from './arrays.js';
 
-const nicknames = ['Xen','Antik','Chel','Zakat','Печенька','Чешир','Alukard','СуперВасяxXx','Куница','Че'];
-const descriptions = ['Описание 1', 'Описание 2','Описание 3','Описание 4','Описание 5'];
-const messages = ['Всё отлично!','В целом всё неплохо. Но не всё.','Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',  'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.',  'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',  'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'];
 const ids = [];
 const photos = [];
+const photo = document.querySelectorAll('.picture');
 
+/*Генерация псевдо-данных*/
 const uniqueNumber = () => {
   const comments = [];
   for (let i = 0; i < getRandom(1,3); i++) {
@@ -18,7 +18,11 @@ const uniqueNumber = () => {
       i--;
     } else {
       ids.push(idInArray);
-      comments.push(new createTestComments(idInArray, getRandom(1,6),  messages[getRandom(0,messages.length-1)], nicknames[getRandom(0,nicknames.length-1)]));
+      comments.push(new createTestComments(
+        idInArray, getRandom(1,6),
+        messages[getRandom(0,messages.length-1)],
+        nicknames[getRandom(0,nicknames.length-1)]
+      ));
     }
   }
   return comments;
@@ -37,21 +41,21 @@ for (let i = 0; i < photos.length; i++) {
   rendering(photos[i]);
 }
 
-const photo = document.querySelectorAll('.picture');
+/*Открытие popup по клику на фото-превью*/
 for (let i = 0; i < photos.length; i++) {
   photo[i].addEventListener('click', () => {
     renderPopup(photos[i]);
   });
 }
 
+/*Закрытие popup по клику на крестик или кнопке Escape */
 document.querySelector('.big-picture__cancel').addEventListener('click', () => {
   document.body.classList.remove('modal-open');
   document.querySelector('.big-picture').classList.add('hidden');
 });
 
-window.addEventListener('keydown',  (evt) => {
+document.body.addEventListener('keydown',  (evt) => {
   if(evt.keyCode === 27) {
-    console.log('2');
     document.body.classList.remove('modal-open');
     document.querySelector('.big-picture').classList.add('hidden');
   }
