@@ -6,8 +6,7 @@ const uploadSubmit = document.querySelector('#upload-submit');
 const maxSymbols = 140;
 const maxHashTags = 5;
 const maxHashTagsLength = 20;
-const correctEnter = /^#[a-zA-Zа-яА-ЯёЁ0-9]{0,}$/;
-const uncorrectEnter = /[^-_=+;:,.`"']$/m;
+const correctEnter = /^#[a-zA-Zа-яА-ЯёЁ0-9]{1,20}$/;
 const orderForm = document.querySelector('#upload-select-image');
 const validateTextComment = orderForm.querySelector('.text__description');
 const validateTag = orderForm.querySelector('.text__hashtags');
@@ -55,11 +54,23 @@ pristine.addValidator(
   'Не больше 140 символов'
 );
 
-const isValidateTagLength = (value) => checkWordsCount(value, maxHashTagsLength);
+const isValidateTagSymbols = (value) => {
+  if(value[0] !== '') {
+    value.toLowerCase().split(' ').forEach((element) => {
+      if(!correctEnter.test(element)) {
+        return false;
+      }
+      return true;
+    });
+  } else {return true;}
+};
+
+
+
 pristine.addValidator(
   validateTag,
-  isValidateTagLength,
-  'Не больше 20 символов'
+  isValidateTagSymbols,
+  'Только буквы и числа'
 );
 
 uploadFormData.addEventListener('submit', (evt) => {
