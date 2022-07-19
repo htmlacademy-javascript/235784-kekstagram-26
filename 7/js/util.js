@@ -54,6 +54,7 @@ pristine.addValidator(
   'Не больше 140 символов'
 );
 
+/* ЧТО ЗДЕСЬ НЕ ТАК!?( */
 const isValidateTagSymbols = (value) => {
   if(value[0] !== '') {
     value.toLowerCase().split(' ').forEach((element) => {
@@ -64,8 +65,6 @@ const isValidateTagSymbols = (value) => {
     });
   } else {return true;}
 };
-
-
 
 pristine.addValidator(
   validateTag,
