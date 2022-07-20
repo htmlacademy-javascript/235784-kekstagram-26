@@ -6,8 +6,7 @@ const messages = ['Всё отлично!','В целом всё неплохо.
 const minId = 1;
 const maxId = 135;
 const minComment = 1;
-const maxComment = 3;
-const ids = [];
+const maxComment = 20;
 const photos = [];
 
 const createTestObject = function (id, url, description, likes, comments) {
@@ -24,12 +23,12 @@ const createTestComments = function (id, avatar, message, name) {
   this.message = message;
   this.name = name;
 };
-
 /*Генерация псевдо-данных*/
 const createComment = () => {
   const comments = [];
   const countComment = getRandom(minComment,maxComment);
-  for (let i = 0; i < countComment; i++) {
+  for (let i = 0; i < Number(countComment); i++) {
+    const ids = [];
     const idInArray = getRandom(minId,maxId);
     if (ids.includes(idInArray)) {
       i--;
