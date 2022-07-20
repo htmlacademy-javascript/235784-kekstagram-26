@@ -4,3 +4,4 @@ import {uploadFile} from './uploadForm.js';
 
 render();
 openPopup();
+uploadFile();
