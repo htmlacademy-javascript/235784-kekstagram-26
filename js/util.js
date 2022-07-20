@@ -2,7 +2,6 @@ const getRandom = (firstNumber, lastNumber) => Math.round(Math.random() * (lastN
 const checkWordsCount = (wordsLine, maxSymbol) => wordsLine.length < maxSymbol;
 const uploadImage = document.querySelector('#upload-file');
 const uploadModal = document.querySelector('.img-upload__overlay');
-const uploadSubmit = document.querySelector('#upload-submit');
 const maxSymbols = 140;
 const maxHashTags = 5;
 const maxHashTagsLength = 20;

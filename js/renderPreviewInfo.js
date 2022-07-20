@@ -1,14 +1,13 @@
 import {getRandom} from './util.js';
 import {descriptions, ids, messages, nicknames, photos} from './arrays.js';
 import {createTestComments, createTestObject} from './create.js';
+const pictures = document.querySelector('.pictures');
+const pictureItem = document.querySelector('#picture').content.querySelector('.picture');
+const template = document.createDocumentFragment();
+const minId = 1;
+const maxId = 135;
 
 const render = () => {
-  const pictures = document.querySelector('.pictures');
-  const pictureItem = document.querySelector('#picture').content.querySelector('.picture');
-  const template = document.createDocumentFragment();
-  const minId = 1;
-  const maxId = 135;
-
   const renderPreviewInfo = function (renderObjects) {
     const imageItem = pictureItem.cloneNode(true);
     imageItem.querySelector('.picture__img').src = renderObjects.url;
