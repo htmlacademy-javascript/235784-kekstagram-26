@@ -1,6 +1,7 @@
-import {render} from './renderPreviewInfo.js';
-import {openPopup} from './renderPopup.js';
-import {closeModal} from './close.js';
+import {render} from './renderPhotoGrid.js';
+import {openPopup} from './popupFullSize.js';
+import {uploadFile} from './uploadForm.js';
 
 render();
 openPopup();
+uploadFile();
