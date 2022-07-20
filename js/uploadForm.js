@@ -1,70 +1,39 @@
-import {photos} from './arrays.js';
+import {checkEscapeEnter} from './utils.js';
 
+const IMAGE_SCALE_COUNT = 100;
 const bodyElement = document.body;
-const socialCommentCount =  document.querySelector('.social__comment-count');
-const commentLoader = document.querySelector('.comments-loader');
-const bigPicture = document.querySelector('.big-picture');
-const bigPictureImg = bigPicture.querySelector('.big-picture__img img');
-const likeCount =  bigPicture.querySelector('.likes-count');
-const commentCount = bigPicture.querySelector('.comments-count');
-const commentList = document.querySelector('.social__comments');
-const IMAGE_SIZE_VALUE = 100;
-const scaleControl = document.querySelector('.scale__control--value');
+const uploadFile= document.querySelector('#upload-file');
+const uploadModal = document.querySelector('.img-upload__overlay');
 const previewImage = document.querySelector('.img-upload__preview-image');
-const bigPictureCancel = document.querySelector('.big-picture__cancel');
-const imgUploadCancel = document.querySelector('.img-upload__cancel');
-const uploadSubmit = document.querySelector('#upload-submit');
+const scaleControl = document.querySelector('.scale__control--value');
+const closeBtn = document.querySelector('.img-upload__cancel');
 
-const openPopup = () => {
-  const photo = document.querySelectorAll('.picture');
-  const renderPopup = function (getItem) {
-    bigPictureImg.src = getItem.url;
-    likeCount.textContent = getItem.likes;
-    commentCount.textContent = getItem.comments.length;
-    commentList.innerHTML = '';
-    for (let i = 0; i < getItem.comments.length; i++) {
-      commentList.innerHTML += `
-        <li class="social__comment">
-          <img
-              class="social__picture"
-              src="${getItem.comments[i].avatar}"
-              alt="${getItem.comments[i].name}"
-              width="35" height="35">
-          <p class="social__text">${getItem.comments[i].message}</p>
-        </li>
-    `;
-    }
-
-    bigPicture.classList.remove('hidden');
-    socialCommentCount.classList.add('hidden');
-    commentLoader.classList.add('.hidden');
-    bodyElement.classList.add('modal-open');
-  };
-
-  /*Открытие popup по клику на фото-превью*/
-  photos.forEach((elem, index) => {
-    photo[index].addEventListener('click', () => {
-      renderPopup(photos[index]);
-    });
-  });
+const onCloseFromEscape = (evt) => {
+  if(checkEscapeEnter(evt)) {
+    evt.preventDefault();
+    closeModalHandler();
+  }
 };
 
-const closeModal = (modal) => {
-  bodyElement.classList.remove('modal-open');
-  document.querySelector(modal).classList.add('hidden');
+const openUploadPopup = () => {
+  bodyElement.classList.add('modal-open');
+  uploadModal.classList.remove('hidden');
+  scaleControl.value = `${IMAGE_SCALE_COUNT}%`;
+  bodyElement.addEventListener('keydown', onCloseFromEscape);
 };
 
-const closeUploadForm = () => {
+function closeModalHandler() {
   bodyElement.classList.remove('modal-open');
-
+  uploadModal.classList.add('hidden');
+  scaleControl.value = `${IMAGE_SCALE_COUNT}%`;
+  uploadFile.value = '';
+  bodyElement.removeEventListener('keydown', onCloseFromEscape);
 }
 
-const resetOptions = () => {
-  scaleControl.value = `${IMAGE_SIZE_VALUE}%`;
-  previewImage.style.transform = 'scale(1)';
-  uploadSubmit.value ='';
-  bigPictureImg.removeAttribute('style');
-  bigPictureImg.removeAttribute('class');
-};
+uploadFile.addEventListener('change', () => {
+  openUploadPopup();
+});
 
-export {openPopup,bigPictureImg};
+closeBtn.addEventListener('click', closeModalHandler);
+
+export {uploadFile};
