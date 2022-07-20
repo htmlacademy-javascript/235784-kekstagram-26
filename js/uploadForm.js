@@ -4,7 +4,6 @@ const IMAGE_SCALE_COUNT = 100;
 const bodyElement = document.body;
 const uploadFile= document.querySelector('#upload-file');
 const uploadModal = document.querySelector('.img-upload__overlay');
-const previewImage = document.querySelector('.img-upload__preview-image');
 const scaleControl = document.querySelector('.scale__control--value');
 const closeBtn = document.querySelector('.img-upload__cancel');
 

@@ -17,14 +17,15 @@ const pristine = new Pristine(orderForm, {
   errorTextClass: 'form__error'
 });
 
-const submitUploadForm = (obValidForm) => {
+const submitUploadForm = () => {
   orderForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
     const formIsValid = pristine.validate();
 
     if(formIsValid) {
-      console.log('Validate!');
+      // eslint-disable-next-line no-console
+      console.log('valid');
     }
   });
 };
