@@ -76,7 +76,7 @@ closeBtn.addEventListener('click', closeModalHandler);
 
 socialCommentsLoader.addEventListener('click', () => {
   socialCommentsLoader.parentNode.querySelectorAll('.social__comment.hidden').forEach((element, index) => {
-    if (index <= 5) {
+    if (index <= visibleComment) {
       element.classList.remove('hidden');
       socialCommentCountMin.textContent = socialCommentsLoader.parentNode.querySelectorAll('.social__comment').length;
     }
