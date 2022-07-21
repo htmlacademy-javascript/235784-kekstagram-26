@@ -2,9 +2,7 @@ import {checkEscapeEnter} from './utils.js';
 import {photos} from './data.js';
 
 const bodyElement = document.body;
-const socialCommentCount =  document.querySelector('.social__comment-count');
 const socialCommentCountMin = document.querySelector('.comments-count-min');
-const commentLoader = document.querySelector('.comments-loader');
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureImg = bigPicture.querySelector('.big-picture__img img');
 const likeCount =  bigPicture.querySelector('.likes-count');
