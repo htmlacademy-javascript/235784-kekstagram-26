@@ -4,8 +4,8 @@ const orderForm = document.querySelector('#upload-select-image');
 const validateTextComment = orderForm.querySelector('.text__description');
 const validateTag = orderForm.querySelector('.text__hashtags');
 const correctEnter = /^#[a-zA-Zа-яА-ЯёЁ0-9]{1,20}$/;
-const maxSymbols = 140;
-const maxHashTags = 5;
+const MAX_SYMBOLS = 140;
+const MAX_HASHTAGS = 5;
 
 document.querySelector('.img-upload__form');
 const pristine = new Pristine(orderForm, {
@@ -30,7 +30,7 @@ const submitUploadForm = () => {
   });
 };
 
-const isValidateCommentLength = (value) => checkWordsCount(value, maxSymbols);
+const isValidateCommentLength = (value) => checkWordsCount(value, MAX_SYMBOLS);
 pristine.addValidator(
   validateTextComment,
   isValidateCommentLength,
@@ -51,10 +51,10 @@ pristine.addValidator(
   'Введите правильно хэштеги',
 );
 
-const isMaxHashtags = (value) => value.split(' ').length <= maxHashTags;
+const isMAX_HASHTAGS = (value) => value.split(' ').length <= MAX_HASHTAGS;
 pristine.addValidator(
   validateTag,
-  isMaxHashtags,
+  isMAX_HASHTAGS,
   'Максимум 5 хэштэгов',
 );
 
