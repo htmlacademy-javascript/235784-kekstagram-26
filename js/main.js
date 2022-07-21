@@ -1,7 +1,8 @@
 import {render} from './renderPhotoGrid.js';
 import {openPopup} from './popupFullSize.js';
-import {uploadFile} from './uploadForm.js';
+import './uploadForm.js';
+import './edit.js';
 
 render();
 openPopup();
-uploadFile();
+
