@@ -1,10 +1,8 @@
-import {photos} from './data.js';
-
 const pictures = document.querySelector('.pictures');
 const pictureItem = document.querySelector('#picture').content.querySelector('.picture');
 const template = document.createDocumentFragment();
 
-const render = () => {
+const render = (element) => {
   const renderPreviewInfo = function (renderObjects) {
     const imageItem = pictureItem.cloneNode(true);
     imageItem.querySelector('.picture__img').src = renderObjects.url;
@@ -13,7 +11,7 @@ const render = () => {
     pictures.appendChild(template.appendChild(imageItem));
   };
 
-  photos.forEach((elem) => renderPreviewInfo(elem));
+  element.forEach((elem) => renderPreviewInfo(elem));
 };
 
 export {render};

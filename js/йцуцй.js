@@ -1,8 +1,8 @@
 import {checkEscapeEnter} from './utils.js';
+import {photos} from './data.js';
 
 const bodyElement = document.body;
-const socialCommentCount =  document.querySelector('.social__comment-count');
-const commentLoader = document.querySelector('.comments-loader');
+const socialCommentCountMin = document.querySelector('.comments-count-min');
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureImg = bigPicture.querySelector('.big-picture__img img');
 const likeCount =  bigPicture.querySelector('.likes-count');
@@ -13,6 +13,7 @@ const visibleComment = 5;
 const socialCommentsLoader = document.querySelector('.social__comments-loader');
 let hidden = '';
 
+
 const onCloseFromEscape = (evt) => {
   if(checkEscapeEnter(evt)) {
     evt.preventDefault();
@@ -20,7 +21,7 @@ const onCloseFromEscape = (evt) => {
   }
 };
 
-const openPopup = (element) => {
+const openPopup = () => {
   const openFullSize = document.querySelectorAll('.picture');
   const renderPopup = (getItem) => {
     bigPictureImg.src = getItem.url;
@@ -51,16 +52,16 @@ const openPopup = (element) => {
         </li>
     `;
     });
+
     bodyElement.classList.add('modal-open');
     bigPicture.classList.remove('hidden');
     bodyElement.addEventListener('keydown', onCloseFromEscape);
   };
-  element.forEach((elem, index) => {
+  photos.forEach((elem, index) => {
     openFullSize[index].addEventListener('click', () => {
-      renderPopup(element[index]);
+      renderPopup(photos[index]);
     });
   });
-
 };
 
 function closeModalHandler() {
