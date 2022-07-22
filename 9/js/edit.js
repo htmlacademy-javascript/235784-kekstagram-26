@@ -5,9 +5,9 @@ const filterSelect = document.querySelectorAll('.effects__radio');
 const filterCount = document.querySelector('.img-upload__effect-level');
 const sliderElement = document.querySelector('.effect-level__slider');
 const effectsLevel = document.querySelector('.effect-level__value');
-const maxScale = 100;
-const minScale = 25;
-const step = 25;
+const MAX_SCALE = 100;
+const MIN_SCALE = 25;
+const STEP_FILTER = 25;
 let scaleCount = 100;
 
 const clearEffects = (element) => {
@@ -18,15 +18,15 @@ const clearEffects = (element) => {
 filterCount.classList.add('hidden');
 
 scaleControlBigger.addEventListener('click', () => {
-  if (scaleCount !== maxScale) {
-    scaleCount += step;
+  if (scaleCount !== MAX_SCALE) {
+    scaleCount += STEP_FILTER;
     previewImage.style = `transform: scale(${scaleCount / 100});`;
   }
 });
 
 scaleControlSmaller.addEventListener('click', () => {
-  if (scaleCount !== minScale) {
-    scaleCount -= step;
+  if (scaleCount !== MIN_SCALE) {
+    scaleCount -= STEP_FILTER;
     previewImage.style = `transform: scale(${scaleCount / 100});`;
   }
 });
