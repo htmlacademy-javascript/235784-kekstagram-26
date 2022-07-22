@@ -59,4 +59,13 @@ function closeModalHandler() {
 
 closeBtn.addEventListener('click', closeModalHandler);
 
+socialCommentsLoader.addEventListener('click', () => {
+  socialCommentsLoader.parentNode.querySelectorAll('.social__comment.hidden').forEach((element, index) => {
+    if (index <= visibleComment) {
+      element.classList.remove('hidden');
+      socialCommentCountMin.textContent = socialCommentsLoader.parentNode.querySelectorAll('.social__comment').length;
+    }
+  });
+});
+
 export {openPopup};
