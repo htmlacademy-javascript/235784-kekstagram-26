@@ -51,10 +51,10 @@ pristine.addValidator(
   'Введите правильно хэштеги',
 );
 
-const isMAX_HASHTAGS = (value) => value.split(' ').length <= MAX_HASHTAGS;
+const isMaxHashtags = (value) => value.split(' ').length <= MAX_HASHTAGS;
 pristine.addValidator(
   validateTag,
-  isMAX_HASHTAGS,
+  isMaxHashtags,
   'Максимум 5 хэштэгов',
 );
 
