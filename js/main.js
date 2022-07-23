@@ -3,7 +3,7 @@ import {openPopup} from './popupFullSize.js';
 import './uploadForm.js';
 import './edit.js';
 import {getInfoFromServer} from './getData.js';
-
+import './validate.js';
 
 getInfoFromServer((posts) => {
   render(posts);

@@ -1,9 +1,10 @@
-import{checkWordsCount, checkEscapeEnter} from './utils.js';
+import {checkWordsCount, checkEscapeEnter} from './utils.js';
 
 const orderForm = document.querySelector('#upload-select-image');
 const validateTextComment = orderForm.querySelector('.text__description');
 const validateTag = orderForm.querySelector('.text__hashtags');
-const correctEnter = /^#[a-zA-Zа-яА-ЯёЁ0-9]{1,20}$/;
+const CORRECT_ENTER = /^#[a-zA-Zа-яА-ЯёЁ0-9]{1,20}$/;
+const imgUploadSubmit = document.querySelector('.img-upload__submit');
 const MAX_SYMBOLS = 140;
 const MAX_HASHTAGS = 5;
 
@@ -17,19 +18,22 @@ const pristine = new Pristine(orderForm, {
   errorTextClass: 'form__error'
 });
 
-const submitUploadForm = () => {
-  orderForm.addEventListener('submit', (evt) => {
-    evt.preventDefault();
 
-    const formIsValid = pristine.validate();
 
-    if(formIsValid) {
-      // eslint-disable-next-line no-console
-      console.log('valid');
-    }
-  });
-};
 
+orderForm.addEventListener('submit', (evt) => {
+  evt.preventDefault();
+  const formIsValid = pristine.validate();
+  if (!formIsValid) {
+    imgUploadSubmit.disabled = true;
+  }
+});
+
+function getAmountErrorMessage () {
+  imgUploadSubmit.disabled = 'true';
+
+  return `Не больше 140 символов`;
+}
 const isValidateCommentLength = (value) => checkWordsCount(value, MAX_SYMBOLS);
 pristine.addValidator(
   validateTextComment,
@@ -37,18 +41,17 @@ pristine.addValidator(
   'Не больше 140 символов'
 );
 
-const isValidEnter = (value) => value.split(' ').every((hashtag) => correctEnter.test(hashtag));
-pristine.addValidator(
-  validateTag,
-  isValidEnter,
-  'Разрешены только буквы и цифры, не более 20 символов',
-);
-
-const isVoidInput = (value) => value === '';
+const isVoidInput = (value) => {
+  if (value === '') {
+    return true;
+  }
+  const newHashtags = value.split(' ');
+  return newHashtags.every((hashtag) => CORRECT_ENTER.test(hashtag));
+};
 pristine.addValidator(
   validateTag,
   isVoidInput,
-  'Введите правильно хэштеги',
+  'Разрешены только буквы и цифры, не более 20 символов',
 );
 
 const isMaxHashtags = (value) => value.split(' ').length <= MAX_HASHTAGS;
@@ -58,12 +61,17 @@ pristine.addValidator(
   'Максимум 5 хэштэгов',
 );
 
-const isTheOnlyOne = (value) => value.toLowerCase().split(' ').every((hashtag) => value.filter((tag) => tag === hashtag).length === 1);
+const isTheOnlyOne = (value) => {
+  const newHashtags = value.toLowerCase().split(' ');
+  return newHashtags.every((newHashtag) => newHashtags.filter((tag) => tag === newHashtag).length === 1);
+};
+
 pristine.addValidator(
   validateTag,
   isTheOnlyOne,
   'Два одинаковых хзштэга!',
 );
+
 
 validateTextComment.addEventListener('keydown', (evt) => {
   if (checkEscapeEnter(evt)) {
@@ -77,4 +85,4 @@ validateTag.addEventListener('keydown', (evt) => {
   }
 });
 
-export {submitUploadForm, pristine};
+export {pristine};
