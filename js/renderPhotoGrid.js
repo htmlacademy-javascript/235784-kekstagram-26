@@ -3,7 +3,7 @@ const pictureItem = document.querySelector('#picture').content.querySelector('.p
 const template = document.createDocumentFragment();
 
 const render = (element) => {
-  const renderPreviewInfo = function (renderObjects) {
+  const renderPreviewInfo = (renderObjects) => {
     const imageItem = pictureItem.cloneNode(true);
     imageItem.querySelector('.picture__img').src = renderObjects.url;
     imageItem.querySelector('.picture__likes').textContent = renderObjects.likes;

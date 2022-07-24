@@ -1,4 +1,7 @@
 import {checkWordsCount, checkEscapeEnter} from './utils.js';
+import {uploadData} from './sendData.js';
+import {closeModalHandler} from './uploadForm.js';
+import {onErrorModal} from './notification.js';
 
 const orderForm = document.querySelector('#upload-select-image');
 const validateTextComment = orderForm.querySelector('.text__description');
@@ -18,22 +21,25 @@ const pristine = new Pristine(orderForm, {
   errorTextClass: 'form__error'
 });
 
-
-
-
 orderForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
   const formIsValid = pristine.validate();
   if (!formIsValid) {
     imgUploadSubmit.disabled = true;
   }
+  const uploadFormSubmit = (formData) => {
+    const uploadSuccessHandler = () => {
+      closeModalHandler();
+    };
+    const uploadFailHandler = () => {
+      onErrorModal();
+      closeModalHandler();
+    };
+    uploadData(formData, uploadSuccessHandler, uploadFailHandler);
+  };
+  uploadFormSubmit(orderForm);
 });
 
-function getAmountErrorMessage () {
-  imgUploadSubmit.disabled = 'true';
-
-  return `Не больше 140 символов`;
-}
 const isValidateCommentLength = (value) => checkWordsCount(value, MAX_SYMBOLS);
 pristine.addValidator(
   validateTextComment,

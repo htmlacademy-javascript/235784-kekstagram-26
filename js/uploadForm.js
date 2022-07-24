@@ -1,4 +1,5 @@
 import {checkEscapeEnter} from './utils.js';
+import {pristine} from './validate.js';
 
 const IMAGE_SCALE_COUNT = 100;
 const bodyElement = document.body;
@@ -6,6 +7,8 @@ const uploadFile= document.querySelector('#upload-file');
 const uploadModal = document.querySelector('.img-upload__overlay');
 const scaleControl = document.querySelector('.scale__control--value');
 const closeBtn = document.querySelector('.img-upload__cancel');
+const validateTextComment = document.querySelector('.text__description');
+const validateTag = document.querySelector('.text__hashtags');
 
 const onCloseFromEscape = (evt) => {
   if(checkEscapeEnter(evt)) {
@@ -27,6 +30,9 @@ function closeModalHandler() {
   scaleControl.value = `${IMAGE_SCALE_COUNT}%`;
   uploadFile.value = '';
   bodyElement.removeEventListener('keydown', onCloseFromEscape);
+  pristine.reset();
+  validateTextComment.textContent = '';
+  validateTag.textContent = '';
 }
 
 uploadFile.addEventListener('change', () => {
@@ -35,4 +41,4 @@ uploadFile.addEventListener('change', () => {
 
 closeBtn.addEventListener('click', closeModalHandler);
 
-export {uploadFile};
+export {uploadFile, closeModalHandler, openUploadPopup};
