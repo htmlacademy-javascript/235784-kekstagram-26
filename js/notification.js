@@ -1,7 +1,7 @@
 import {checkEscapeEnter} from './utils.js';
 import {closeModalHandler} from './uploadForm.js';
 
-const errorFragment = document.querySelector('#error').content.querySelector('.error');;
+const errorFragment = document.querySelector('#error').content.querySelector('.error');
 const successFragment = document.querySelector('#success').content.querySelector('.success');
 const template = document.createDocumentFragment();
 
@@ -59,4 +59,16 @@ const onSuccessModal = () => {
   document.body.addEventListener('keydown', closeFromKeyboard);
 };
 
-export {onErrorModal,onSuccessModal};
+const attentionMsg = (errorMsg) => {
+  const errorElement = document.createElement('div');
+  const errorBtn = document.createElement('button');
+  errorBtn.classList.add('error__button');
+  errorBtn.innerText = 'ОК';
+  errorElement.classList.add('errorMsg');
+  errorElement.textContent = errorMsg;
+  errorElement.appendChild(errorBtn);
+  document.body.appendChild(errorElement);
+  errorBtn.addEventListener('click', () => errorElement.remove());
+};
+
+export {onErrorModal,onSuccessModal,attentionMsg};

@@ -1,7 +1,6 @@
 const UPLOAD_TO_SERVER = 'https://26.javascript.pages.academy/kekstagram';
 
 const uploadData = (formData, onSuccess, onFail) => {
-  console.log(formData);
   fetch(UPLOAD_TO_SERVER, {
     method: 'POST',
     body:formData

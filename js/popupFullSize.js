@@ -1,7 +1,6 @@
 import {checkEscapeEnter} from './utils.js';
 
 const bodyElement = document.body;
-const socialCommentCountMin =  document.querySelector('.comments-count-min');
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureImg = bigPicture.querySelector('.big-picture__img img');
 const likeCount =  bigPicture.querySelector('.likes-count');

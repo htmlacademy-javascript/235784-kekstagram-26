@@ -33,7 +33,6 @@ function closeModalHandler() {
   pristine.reset();
   validateTextComment.value = '';
   validateTag.value = '';
-  console.log(validateTag.value);
 }
 
 uploadFile.addEventListener('change', () => {
