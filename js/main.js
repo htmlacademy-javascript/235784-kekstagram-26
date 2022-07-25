@@ -4,6 +4,7 @@ import './uploadForm.js';
 import './edit.js';
 import {getInfoFromServer} from './getData.js';
 import './validate.js';
+import './notification.js';
 
 getInfoFromServer((posts) => {
   render(posts);

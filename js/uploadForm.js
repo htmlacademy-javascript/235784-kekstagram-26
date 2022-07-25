@@ -31,8 +31,9 @@ function closeModalHandler() {
   uploadFile.value = '';
   bodyElement.removeEventListener('keydown', onCloseFromEscape);
   pristine.reset();
-  validateTextComment.textContent = '';
-  validateTag.textContent = '';
+  validateTextComment.value = '';
+  validateTag.value = '';
+  console.log(validateTag.value);
 }
 
 uploadFile.addEventListener('change', () => {

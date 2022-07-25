@@ -64,8 +64,6 @@ function closeModalHandler() {
   bodyElement.removeEventListener('keydown', onCloseFromEscape);
 }
 
-
-
 closeBtn.addEventListener('click', closeModalHandler);
 
 socialCommentsLoader.addEventListener('click', () => {

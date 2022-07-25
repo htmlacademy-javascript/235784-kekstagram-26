@@ -1,7 +1,7 @@
 import {checkWordsCount, checkEscapeEnter} from './utils.js';
 import {uploadData} from './sendData.js';
 import {closeModalHandler} from './uploadForm.js';
-import {onErrorModal} from './notification.js';
+import {onSuccessModal, onErrorModal} from './notification.js';
 
 const orderForm = document.querySelector('#upload-select-image');
 const validateTextComment = orderForm.querySelector('.text__description');
@@ -29,6 +29,7 @@ orderForm.addEventListener('submit', (evt) => {
   }
   const uploadFormSubmit = (formData) => {
     const uploadSuccessHandler = () => {
+      onSuccessModal();
       closeModalHandler();
     };
     const uploadFailHandler = () => {
