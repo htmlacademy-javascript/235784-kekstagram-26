@@ -21,25 +21,32 @@ const pristine = new Pristine(orderForm, {
   errorTextClass: 'form__error'
 });
 
-orderForm.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-  const formIsValid = pristine.validate();
-  if (!formIsValid) {
-    imgUploadSubmit.disabled = true;
-  }
-  const uploadFormSubmit = (formData) => {
-    const uploadSuccessHandler = () => {
-      onSuccessModal();
-      closeModalHandler();
-    };
-    const uploadFailHandler = () => {
-      onErrorModal();
-      closeModalHandler();
-    };
-    uploadData(formData, uploadSuccessHandler, uploadFailHandler);
+const initUploadFormValidation = (onSuccessValidation) => {
+  orderForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+
+    const formIsValid = pristine.validate();
+
+    if(formIsValid) {
+      imgUploadSubmit.disabled = true;
+      const formData = new FormData(evt.target);
+      onSuccessValidation(formData);
+    }
+  });
+};
+
+const uploadFormSubmit = (formData) => {
+  const uploadSuccessHandler = () => {
+    onSuccessModal();
+    closeModalHandler();
   };
-  uploadFormSubmit(orderForm);
-});
+  const uploadFailHandler = () => {
+    onErrorModal();
+    closeModalHandler();
+  };
+  uploadData(formData, uploadSuccessHandler, uploadFailHandler);
+};
+initUploadFormValidation(uploadFormSubmit);
 
 const isValidateCommentLength = (value) => checkWordsCount(value, MAX_SYMBOLS);
 pristine.addValidator(
@@ -92,4 +99,4 @@ validateTag.addEventListener('keydown', (evt) => {
   }
 });
 
-export {pristine};
+export {initUploadFormValidation,pristine};
