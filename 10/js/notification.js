@@ -1,13 +1,13 @@
 import {checkEscapeEnter} from './utils.js';
 import {closeModalHandler} from './uploadForm.js';
 
-const errorFragment = document.querySelector('#error').content.querySelector('.error');
-const successFragment = document.querySelector('#success').content.querySelector('.success');
-const template = document.createDocumentFragment();
+const errorFragmentElement = document.querySelector('#error').content.querySelector('.error');
+const successFragmentElement = document.querySelector('#success').content.querySelector('.success');
+const templateElement = document.createDocumentFragment();
 
 const onErrorModal = () => {
-  const errorItem = errorFragment.cloneNode(true);
-  document.body.appendChild(template.appendChild(errorItem));
+  const errorItem = errorFragmentElement.cloneNode(true);
+  document.body.appendChild(templateElement.appendChild(errorItem));
 
   const errorOverlay = document.querySelector('.error');
 
@@ -34,8 +34,8 @@ const onErrorModal = () => {
 };
 
 const onSuccessModal = () => {
-  const successItem = successFragment.cloneNode(true);
-  document.body.appendChild(template.appendChild(successItem));
+  const successItem = successFragmentElement.cloneNode(true);
+  document.body.appendChild(templateElement.appendChild(successItem));
 
   const successOverlay = document.querySelector('.success');
 

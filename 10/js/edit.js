@@ -1,10 +1,10 @@
-const scaleControlBigger = document.querySelector('.scale__control--bigger');
-const scaleControlSmaller = document.querySelector('.scale__control--smaller');
-const previewImage = document.querySelector('.img-upload__preview img');
-const filterSelect = document.querySelectorAll('.effects__radio');
-const filterCount = document.querySelector('.img-upload__effect-level');
+const scaleControlBiggerElement = document.querySelector('.scale__control--bigger');
+const scaleControlSmallerElement = document.querySelector('.scale__control--smaller');
+const previewImageElement = document.querySelector('.img-upload__preview img');
+const filterSelectElement = document.querySelectorAll('.effects__radio');
+const filterCountElement = document.querySelector('.img-upload__effect-level');
 const sliderElement = document.querySelector('.effect-level__slider');
-const effectsLevel = document.querySelector('.effect-level__value');
+const effectsLevelElement = document.querySelector('.effect-level__value');
 const MAX_SCALE = 100;
 const MIN_SCALE = 25;
 const STEP_FILTER = 25;
@@ -15,19 +15,19 @@ const clearEffects = (element) => {
   element.removeAttribute('style');
 };
 
-filterCount.classList.add('hidden');
+filterCountElement.classList.add('hidden');
 
-scaleControlBigger.addEventListener('click', () => {
+scaleControlBiggerElement.addEventListener('click', () => {
   if (scaleCount !== MAX_SCALE) {
     scaleCount += STEP_FILTER;
-    previewImage.style = `transform: scale(${scaleCount / 100});`;
+    previewImageElement.style = `transform: scale(${scaleCount / 100});`;
   }
 });
 
-scaleControlSmaller.addEventListener('click', () => {
+scaleControlSmallerElement.addEventListener('click', () => {
   if (scaleCount !== MIN_SCALE) {
     scaleCount -= STEP_FILTER;
-    previewImage.style = `transform: scale(${scaleCount / 100});`;
+    previewImageElement.style = `transform: scale(${scaleCount / 100});`;
   }
 });
 
@@ -41,15 +41,15 @@ noUiSlider.create(sliderElement, {
   connect: 'lower',
 });
 
-filterSelect.forEach((element) => {
+filterSelectElement.forEach((element) => {
   element.addEventListener('change', () => {
     let unit = '';
     let correctNameFilter = '';
     sliderElement.noUiSlider.reset();
-    clearEffects(previewImage);
+    clearEffects(previewImageElement);
     if (element.value !== 'none') {
-      filterCount.classList.remove('hidden');
-      previewImage.classList.add(`effects__preview--${element.value}`);
+      filterCountElement.classList.remove('hidden');
+      previewImageElement.classList.add(`effects__preview--${element.value}`);
       if (element.value === 'chrome') {
         correctNameFilter = 'grayscale';
         sliderElement.noUiSlider.updateOptions({
@@ -109,14 +109,14 @@ filterSelect.forEach((element) => {
       }
     }
     sliderElement.noUiSlider.on('update', () => {
-      effectsLevel.value = sliderElement.noUiSlider.get();
-      previewImage.style = `filter:${correctNameFilter}(${effectsLevel.value + unit});`;
+      effectsLevelElement.value = sliderElement.noUiSlider.get();
+      previewImageElement.style = `filter:${correctNameFilter}(${effectsLevelElement.value + unit});`;
     });
     if (element.value === 'none') {
-      filterCount.classList.add('hidden');
-      clearEffects(previewImage);
+      filterCountElement.classList.add('hidden');
+      clearEffects(previewImageElement);
     }
   });
 });
 
-export {scaleControlSmaller};
+export {scaleControlSmallerElement};
