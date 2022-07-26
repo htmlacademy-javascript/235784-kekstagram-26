@@ -1,4 +1,4 @@
-import {render} from './renderPhotoGrid.js';
+import {render} from './render-photo-grid.js';
 
 const DEBOUNCE_TIME = 500;
 const RANDOM_PHOTO_MAX_COUNT = 10;

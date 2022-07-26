@@ -1,8 +1,8 @@
-import {render} from './renderPhotoGrid.js';
-import {openPopup} from './popupFullSize.js';
-import {getInfoFromServer} from './getData.js';
+import {render} from './render-photo-grid.js';
+import {openPopup} from './popup-full-size.js';
+import {getInfoFromServer} from './get-data.js';
 import {setFilterHandlers} from './filter.js';
-import './uploadForm.js';
+import './upload-form.js';
 import './edit.js';
 import './validate.js';
 import './notification.js';
