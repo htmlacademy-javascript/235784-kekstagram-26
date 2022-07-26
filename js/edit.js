@@ -5,6 +5,7 @@ const filterSelectElement = document.querySelectorAll('.effects__radio');
 const filterCountElement = document.querySelector('.img-upload__effect-level');
 const sliderElement = document.querySelector('.effect-level__slider');
 const effectsLevelElement = document.querySelector('.effect-level__value');
+const scaleControlElement = document.querySelector('.scale__control--value');
 const MAX_SCALE = 100;
 const MIN_SCALE = 25;
 const STEP_FILTER = 25;
@@ -21,6 +22,7 @@ scaleControlBiggerElement.addEventListener('click', () => {
   if (scaleCount !== MAX_SCALE) {
     scaleCount += STEP_FILTER;
     previewImageElement.style = `transform: scale(${scaleCount / 100});`;
+    scaleControlElement.value = `${scaleCount}%`;
   }
 });
 
@@ -28,6 +30,7 @@ scaleControlSmallerElement.addEventListener('click', () => {
   if (scaleCount !== MIN_SCALE) {
     scaleCount -= STEP_FILTER;
     previewImageElement.style = `transform: scale(${scaleCount / 100});`;
+    scaleControlElement.value = `${scaleCount}%`;
   }
 });
 

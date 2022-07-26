@@ -3,7 +3,12 @@ const pictureItemElement = document.querySelector('#picture').content.querySelec
 const template = document.createDocumentFragment();
 const imgFiltersElement = document.querySelector('.img-filters');
 
+const remove = () => {
+  picturesElement.querySelectorAll('.picture').forEach((post) => post.remove());
+};
+
 const render = (element) => {
+  if (pictureItemElement) {remove()};
   const renderPreviewInfo = (renderObjects) => {
     const imageItem = pictureItemElement.cloneNode(true);
     imageItem.querySelector('.picture__img').src = renderObjects.url;
@@ -16,14 +21,4 @@ const render = (element) => {
   imgFiltersElement.classList.remove('img-filters--inactive');
 };
 
-const destroy = () => {
-  const pictureItemElement = document.querySelectorAll('.picture');
-
-  if (pictureItemElement) {
-    pictureItemElement.forEach((element) => {
-      element.remove();
-    });
-  };
-};
-
-export {render, destroy};
+export {render, remove};
