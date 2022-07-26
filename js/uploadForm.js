@@ -41,9 +41,7 @@ uploadFileElement.addEventListener('change', () => {
   openUploadPopup();
   const fileElement = uploadFileElement.files[0];
   const fileNameElement = fileElement.name.toLowerCase();
-  const matchesElement = FILE_TYPES.some((it) => {
-    return fileNameElement.endsWith(it);
-  });
+  const matchesElement = FILE_TYPES.some((it) => fileNameElement.endsWith(it));
 
   if (matchesElement) {
     previePicturesElement.src = URL.createObjectURL(fileElement);

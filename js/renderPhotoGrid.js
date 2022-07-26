@@ -8,7 +8,7 @@ const remove = () => {
 };
 
 const render = (element) => {
-  if (pictureItemElement) {remove()};
+  if (pictureItemElement) {remove();}
   const renderPreviewInfo = (renderObjects) => {
     const imageItem = pictureItemElement.cloneNode(true);
     imageItem.querySelector('.picture__img').src = renderObjects.url;
