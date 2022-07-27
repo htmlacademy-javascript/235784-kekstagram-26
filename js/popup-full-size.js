@@ -58,7 +58,6 @@ const openPopup = (el) => {
   };
   el.forEach((elem, index) => {
     openFullSize[index].addEventListener('click', () => {
-      console.log('111');
       renderPopup(el[index]);
     });
   });

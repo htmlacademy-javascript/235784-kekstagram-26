@@ -7,7 +7,6 @@ import './edit.js';
 import './validate.js';
 import './notification.js';
 
-
 getInfoFromServer((posts) => {
   render(posts);
   setFilterHandlers(posts);
