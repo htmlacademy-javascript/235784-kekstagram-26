@@ -1,5 +1,5 @@
 import {checkEscapeEnter} from './utils.js';
-import {closeModalHandler} from './uploadForm.js';
+import {closeModalHandler} from './upload-form.js';
 
 const errorFragmentElement = document.querySelector('#error').content.querySelector('.error');
 const successFragmentElement = document.querySelector('#success').content.querySelector('.success');

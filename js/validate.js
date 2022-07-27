@@ -1,6 +1,6 @@
 import {checkWordsCount, checkEscapeEnter} from './utils.js';
-import {uploadData} from './sendData.js';
-import {closeModalHandler} from './uploadForm.js';
+import {uploadData} from './send-data.js';
+import {closeModalHandler} from './upload-form.js';
 import {onSuccessModal, onErrorModal} from './notification.js';
 
 const orderFormElement = document.querySelector('#upload-select-image');
