@@ -14,6 +14,8 @@ let scaleCount = 100;
 const clearEffects = (element) => {
   element.removeAttribute('class');
   element.removeAttribute('style');
+  scaleCount = 100;
+  scaleControlElement.value = `${scaleCount}%`;
 };
 
 filterCountElement.classList.add('hidden');
@@ -50,6 +52,8 @@ filterSelectElement.forEach((element) => {
     let correctNameFilter = '';
     sliderElement.noUiSlider.reset();
     clearEffects(previewImageElement);
+    scaleCount = 100;
+    scaleControlElement.value = `${scaleCount}%`;
     if (element.value !== 'none') {
       filterCountElement.classList.remove('hidden');
       previewImageElement.classList.add(`effects__preview--${element.value}`);
@@ -122,4 +126,4 @@ filterSelectElement.forEach((element) => {
   });
 });
 
-export {scaleControlSmallerElement};
+export {scaleControlSmallerElement, clearEffects};

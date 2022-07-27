@@ -10,6 +10,6 @@ import './notification.js';
 
 getInfoFromServer((posts) => {
   render(posts);
-  openPopup(posts);
   setFilterHandlers(posts);
+  openPopup(posts);
 });

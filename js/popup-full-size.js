@@ -7,6 +7,7 @@ const likeCountElement =  bigPictureElement.querySelector('.likes-count');
 const commentCountElement = bigPictureElement.querySelector('.comments-count');
 const closeBtnElement = bigPictureElement.querySelector('.big-picture__cancel');
 const commentListElement = document.querySelector('.social__comments');
+const commentCountOpenElement = document.querySelector('.comments-count-min');
 const COMMENTS_COUNT = 5;
 const socialCommentsLoaderElement = document.querySelector('.social__comments-loader');
 const socialCommentElement = commentListElement.querySelector('.social__comment');
@@ -44,6 +45,11 @@ const openPopup = (el) => {
     bigPictureImgElement.src = getItem.url;
     likeCountElement.textContent = getItem.likes;
     commentCountElement.textContent = getItem.comments.length;
+    if (getItem.comments.length > COMMENTS_COUNT) {
+      commentCountOpenElement.textContent = COMMENTS_COUNT;
+    } else {
+      commentCountOpenElement.textContent = getItem.comments.length;
+    }
     commentListElement.innerHTML = '';
     renderComment(postCommentsElement.splice(0,COMMENTS_COUNT));
     bodyElement.classList.add('modal-open');
@@ -52,6 +58,7 @@ const openPopup = (el) => {
   };
   el.forEach((elem, index) => {
     openFullSize[index].addEventListener('click', () => {
+      console.log('111');
       renderPopup(el[index]);
     });
   });
@@ -67,6 +74,8 @@ closeBtnElement.addEventListener('click', closeModalHandler);
 
 socialCommentsLoaderElement.addEventListener('click', () => {
   renderComment(postCommentsElement.splice(0,COMMENTS_COUNT));
+  const commentsCountOpen = document.querySelectorAll('.social__comment');
+  commentCountOpenElement.textContent = commentsCountOpen.length;
 });
 
 export {openPopup};

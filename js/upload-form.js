@@ -1,5 +1,6 @@
 import {checkEscapeEnter} from './utils.js';
 import {pristine} from './validate.js';
+import {clearEffects} from './edit.js';
 
 const IMAGE_SCALE_COUNT = 100;
 const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
@@ -11,6 +12,9 @@ const closeBtnElement = document.querySelector('.img-upload__cancel');
 const validateTextCommentElement = document.querySelector('.text__description');
 const validateTagElement = document.querySelector('.text__hashtags');
 const previePicturesElement = document.querySelector('.img-upload__preview-image');
+const effectPreviewElement = document.querySelectorAll('.effects__preview');
+const previewImageElement = document.querySelector('.img-upload__preview img');
+const effectsRadioElement = document.querySelector('.effects__radio');
 
 const onCloseFromEscape = (evt) => {
   if(checkEscapeEnter(evt)) {
@@ -35,6 +39,8 @@ function closeModalHandler() {
   pristine.reset();
   validateTextCommentElement.value = '';
   validateTagElement.value = '';
+  clearEffects(previewImageElement);
+  effectsRadioElement.checked = true;
 }
 
 uploadFileElement.addEventListener('change', () => {
@@ -45,6 +51,9 @@ uploadFileElement.addEventListener('change', () => {
 
   if (matchesElement) {
     previePicturesElement.src = URL.createObjectURL(fileElement);
+    effectPreviewElement.forEach((element) => {
+      element.style = `background-image: url(${URL.createObjectURL(fileElement)}`;
+    });
   }
 });
 
