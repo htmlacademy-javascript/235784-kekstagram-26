@@ -1,14 +1,18 @@
-import{checkWordsCount, checkEscapeEnter} from './utils.js';
+import {checkWordsCount, checkEscapeEnter} from './utils.js';
+import {uploadData} from './sendData.js';
+import {closeModalHandler} from './uploadForm.js';
+import {onSuccessModal, onErrorModal} from './notification.js';
 
-const orderForm = document.querySelector('#upload-select-image');
-const validateTextComment = orderForm.querySelector('.text__description');
-const validateTag = orderForm.querySelector('.text__hashtags');
-const correctEnter = /^#[a-zA-Zа-яА-ЯёЁ0-9]{1,20}$/;
-const maxSymbols = 140;
-const maxHashTags = 5;
+const orderFormElement = document.querySelector('#upload-select-image');
+const validateTextCommentElement = orderFormElement.querySelector('.text__description');
+const validateTagElement = orderFormElement.querySelector('.text__hashtags');
+const imgUploadSubmitElement = document.querySelector('.img-upload__submit');
+const CORRECT_ENTER = /^#[a-zA-Zа-яА-ЯёЁ0-9]{1,20}$/;
+const MAX_SYMBOLS = 140;
+const MAX_HASHTAGS = 5;
 
 document.querySelector('.img-upload__form');
-const pristine = new Pristine(orderForm, {
+const pristine = new Pristine(orderFormElement, {
   classTo: 'img-upload__field-wrapper',
   errorClass: 'form__item--invalid',
   successClass: 'form__item--valid',
@@ -17,64 +21,82 @@ const pristine = new Pristine(orderForm, {
   errorTextClass: 'form__error'
 });
 
-const submitUploadForm = () => {
-  orderForm.addEventListener('submit', (evt) => {
+const initUploadFormValidation = (onSuccessValidation) => {
+  orderFormElement.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
     const formIsValid = pristine.validate();
 
     if(formIsValid) {
-      // eslint-disable-next-line no-console
-      console.log('valid');
+      imgUploadSubmitElement.disabled = true;
+      const formData = new FormData(evt.target);
+      onSuccessValidation(formData);
     }
   });
 };
 
-const isValidateCommentLength = (value) => checkWordsCount(value, maxSymbols);
+const uploadFormSubmit = (formData) => {
+  const uploadSuccessHandler = () => {
+    onSuccessModal();
+    closeModalHandler();
+  };
+  const uploadFailHandler = () => {
+    onErrorModal();
+    closeModalHandler();
+  };
+  uploadData(formData, uploadSuccessHandler, uploadFailHandler);
+};
+initUploadFormValidation(uploadFormSubmit);
+
+const isValidateCommentLength = (value) => checkWordsCount(value, MAX_SYMBOLS);
 pristine.addValidator(
-  validateTextComment,
+  validateTextCommentElement,
   isValidateCommentLength,
   'Не больше 140 символов'
 );
 
-const isValidEnter = (value) => value.split(' ').every((hashtag) => correctEnter.test(hashtag));
+const isVoidInput = (value) => {
+  if (value === '') {
+    return true;
+  }
+  const newHashtags = value.split(' ');
+  return newHashtags.every((hashtag) => CORRECT_ENTER.test(hashtag));
+};
 pristine.addValidator(
-  validateTag,
-  isValidEnter,
+  validateTagElement,
+  isVoidInput,
   'Разрешены только буквы и цифры, не более 20 символов',
 );
 
-const isVoidInput = (value) => value === '';
+const isMaxHashtags = (value) => value.split(' ').length <= MAX_HASHTAGS;
 pristine.addValidator(
-  validateTag,
-  isVoidInput,
-  'Введите правильно хэштеги',
-);
-
-const isMaxHashtags = (value) => value.split(' ').length <= maxHashTags;
-pristine.addValidator(
-  validateTag,
+  validateTagElement,
   isMaxHashtags,
   'Максимум 5 хэштэгов',
 );
 
-const isTheOnlyOne = (value) => value.toLowerCase().split(' ').every((hashtag) => value.filter((tag) => tag === hashtag).length === 1);
+const isTheOnlyOne = (value) => {
+  const newHashtags = value.toLowerCase().split(' ');
+  return newHashtags.every((newHashtag) => newHashtags.filter((tag) => tag === newHashtag).length === 1);
+};
+
 pristine.addValidator(
-  validateTag,
+  validateTagElement,
   isTheOnlyOne,
   'Два одинаковых хзштэга!',
 );
 
-validateTextComment.addEventListener('keydown', (evt) => {
+
+validateTextCommentElement.addEventListener('keydown', (evt) => {
   if (checkEscapeEnter(evt)) {
     evt.stopPropagation();
   }
 });
 
-validateTag.addEventListener('keydown', (evt) => {
+validateTagElement.addEventListener('keydown', (evt) => {
   if (checkEscapeEnter(evt)) {
     evt.stopPropagation();
   }
 });
 
-export {submitUploadForm, pristine};
+export {initUploadFormValidation,pristine};

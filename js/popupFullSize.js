@@ -1,15 +1,16 @@
 import {checkEscapeEnter} from './utils.js';
-import {photos} from './data.js';
 
 const bodyElement = document.body;
-const socialCommentCount =  document.querySelector('.social__comment-count');
-const commentLoader = document.querySelector('.comments-loader');
-const bigPicture = document.querySelector('.big-picture');
-const bigPictureImg = bigPicture.querySelector('.big-picture__img img');
-const likeCount =  bigPicture.querySelector('.likes-count');
-const commentCount = bigPicture.querySelector('.comments-count');
-const closeBtn = bigPicture.querySelector('.big-picture__cancel');
-const commentList = document.querySelector('.social__comments');
+const bigPictureElement = document.querySelector('.big-picture');
+const bigPictureImgElement = bigPictureElement.querySelector('.big-picture__img img');
+const likeCountElement =  bigPictureElement.querySelector('.likes-count');
+const commentCountElement = bigPictureElement.querySelector('.comments-count');
+const closeBtnElement = bigPictureElement.querySelector('.big-picture__cancel');
+const commentListElement = document.querySelector('.social__comments');
+const COMMENTS_COUNT = 5;
+const socialCommentsLoaderElement = document.querySelector('.social__comments-loader');
+const socialCommentElement = commentListElement.querySelector('.social__comment');
+let postCommentsElement = [];
 
 const onCloseFromEscape = (evt) => {
   if(checkEscapeEnter(evt)) {
@@ -18,45 +19,54 @@ const onCloseFromEscape = (evt) => {
   }
 };
 
-const openPopup = () => {
+const createComment = (item) => {
+  socialCommentsLoaderElement.classList.add('hidden');
+  if(postCommentsElement.length) {
+    socialCommentsLoaderElement.classList.remove('hidden');
+  }
+  const newComment = socialCommentElement.cloneNode(true);
+  newComment.querySelector('.social__picture').src = item.avatar;
+  newComment.querySelector('.social__picture').alt = item.name;
+  newComment.querySelector('.social__text').textContent = item.message;
+  return newComment;
+};
+
+const renderComment = (comments) => {
+  comments.forEach((comment) => {
+    commentListElement.appendChild(createComment(comment));
+  });
+};
+
+const openPopup = (el) => {
   const openFullSize = document.querySelectorAll('.picture');
   const renderPopup = (getItem) => {
-    bigPictureImg.src = getItem.url;
-    likeCount.textContent = getItem.likes;
-    commentCount.textContent = getItem.comments.length;
-    commentList.innerHTML = '';
-    for (let i = 0; i < getItem.comments.length; i++) {
-      commentList.innerHTML += `
-        <li class="social__comment">
-          <img
-              class="social__picture"
-              src="${getItem.comments[i].avatar}"
-              alt="${getItem.comments[i].name}"
-              width="35" height="35">
-          <p class="social__text">${getItem.comments[i].message}</p>
-        </li>
-    `;
-    }
+    postCommentsElement = [...getItem.comments];
+    bigPictureImgElement.src = getItem.url;
+    likeCountElement.textContent = getItem.likes;
+    commentCountElement.textContent = getItem.comments.length;
+    commentListElement.innerHTML = '';
+    renderComment(postCommentsElement.splice(0,COMMENTS_COUNT));
     bodyElement.classList.add('modal-open');
-    bigPicture.classList.remove('hidden');
-    socialCommentCount.classList.add('hidden');
-    commentLoader.classList.add('.hidden');
+    bigPictureElement.classList.remove('hidden');
     bodyElement.addEventListener('keydown', onCloseFromEscape);
   };
-  photos.forEach((elem, index) => {
+  el.forEach((elem, index) => {
     openFullSize[index].addEventListener('click', () => {
-      renderPopup(photos[index]);
+      renderPopup(el[index]);
     });
   });
-
 };
 
 function closeModalHandler() {
   bodyElement.classList.remove('modal-open');
-  bigPicture.classList.add('hidden');
+  bigPictureElement.classList.add('hidden');
   bodyElement.removeEventListener('keydown', onCloseFromEscape);
 }
 
-closeBtn.addEventListener('click', closeModalHandler);
+closeBtnElement.addEventListener('click', closeModalHandler);
+
+socialCommentsLoaderElement.addEventListener('click', () => {
+  renderComment(postCommentsElement.splice(0,COMMENTS_COUNT));
+});
 
 export {openPopup};
