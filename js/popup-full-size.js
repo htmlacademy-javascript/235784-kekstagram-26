@@ -1,5 +1,7 @@
 import {checkEscapeEnter} from './utils.js';
 
+const COMMENTS_COUNT = 5;
+
 const bodyElement = document.body;
 const bigPictureElement = document.querySelector('.big-picture');
 const bigPictureImgElement = bigPictureElement.querySelector('.big-picture__img img');
@@ -8,10 +10,9 @@ const commentCountElement = bigPictureElement.querySelector('.comments-count');
 const closeBtnElement = bigPictureElement.querySelector('.big-picture__cancel');
 const commentListElement = document.querySelector('.social__comments');
 const commentCountOpenElement = document.querySelector('.comments-count-min');
-const COMMENTS_COUNT = 5;
 const socialCommentsLoaderElement = document.querySelector('.social__comments-loader');
 const socialCommentElement = commentListElement.querySelector('.social__comment');
-let postCommentsElement = [];
+let postCommentsElements = [];
 
 const onCloseFromEscape = (evt) => {
   if(checkEscapeEnter(evt)) {
@@ -22,7 +23,7 @@ const onCloseFromEscape = (evt) => {
 
 const createComment = (item) => {
   socialCommentsLoaderElement.classList.add('hidden');
-  if(postCommentsElement.length) {
+  if(postCommentsElements.length) {
     socialCommentsLoaderElement.classList.remove('hidden');
   }
   const newComment = socialCommentElement.cloneNode(true);
@@ -41,17 +42,13 @@ const renderComment = (comments) => {
 const openPopup = (el) => {
   const openFullSize = document.querySelectorAll('.picture');
   const renderPopup = (getItem) => {
-    postCommentsElement = [...getItem.comments];
+    postCommentsElements = [...getItem.comments];
     bigPictureImgElement.src = getItem.url;
     likeCountElement.textContent = getItem.likes;
     commentCountElement.textContent = getItem.comments.length;
-    if (getItem.comments.length > COMMENTS_COUNT) {
-      commentCountOpenElement.textContent = COMMENTS_COUNT;
-    } else {
-      commentCountOpenElement.textContent = getItem.comments.length;
-    }
+    (getItem.comments.length > COMMENTS_COUNT) ? commentCountOpenElement.textContent = COMMENTS_COUNT : commentCountOpenElement.textContent = getItem.comments.length;
     commentListElement.innerHTML = '';
-    renderComment(postCommentsElement.splice(0,COMMENTS_COUNT));
+    renderComment(postCommentsElements.splice(0,COMMENTS_COUNT));
     bodyElement.classList.add('modal-open');
     bigPictureElement.classList.remove('hidden');
     bodyElement.addEventListener('keydown', onCloseFromEscape);
@@ -72,7 +69,7 @@ function closeModalHandler() {
 closeBtnElement.addEventListener('click', closeModalHandler);
 
 socialCommentsLoaderElement.addEventListener('click', () => {
-  renderComment(postCommentsElement.splice(0,COMMENTS_COUNT));
+  renderComment(postCommentsElements.splice(0,COMMENTS_COUNT));
   const commentsCountOpen = document.querySelectorAll('.social__comment');
   commentCountOpenElement.textContent = commentsCountOpen.length;
 });
