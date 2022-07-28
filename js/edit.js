@@ -1,3 +1,7 @@
+const MAX_SCALE = 100;
+const MIN_SCALE = 25;
+const STEP_FILTER = 25;
+
 const scaleControlBiggerElement = document.querySelector('.scale__control--bigger');
 const scaleControlSmallerElement = document.querySelector('.scale__control--smaller');
 const previewImageElement = document.querySelector('.img-upload__preview img');
@@ -6,9 +10,6 @@ const filterCountElement = document.querySelector('.img-upload__effect-level');
 const sliderElement = document.querySelector('.effect-level__slider');
 const effectsLevelElement = document.querySelector('.effect-level__value');
 const scaleControlElement = document.querySelector('.scale__control--value');
-const MAX_SCALE = 100;
-const MIN_SCALE = 25;
-const STEP_FILTER = 25;
 let scaleCount = 100;
 
 const clearEffects = (element) => {

@@ -3,13 +3,14 @@ import {uploadData} from './send-data.js';
 import {closeModalHandler} from './upload-form.js';
 import {onSuccessModal, onErrorModal} from './notification.js';
 
+const CORRECT_ENTER = /^#[a-zA-Zа-яА-ЯёЁ0-9]{1,20}$/;
+const MAX_SYMBOLS = 140;
+const MAX_HASHTAGS = 5;
+
 const orderFormElement = document.querySelector('#upload-select-image');
 const validateTextCommentElement = orderFormElement.querySelector('.text__description');
 const validateTagElement = orderFormElement.querySelector('.text__hashtags');
 const imgUploadSubmitElement = document.querySelector('.img-upload__submit');
-const CORRECT_ENTER = /^#[a-zA-Zа-яА-ЯёЁ0-9]{1,20}$/;
-const MAX_SYMBOLS = 140;
-const MAX_HASHTAGS = 5;
 
 document.querySelector('.img-upload__form');
 const pristine = new Pristine(orderFormElement, {
