@@ -46,6 +46,7 @@ const openPopup = (el) => {
     bigPictureImgElement.src = getItem.url;
     likeCountElement.textContent = getItem.likes;
     commentCountElement.textContent = getItem.comments.length;
+    // eslint-disable-next-line no-unused-expressions
     (getItem.comments.length > COMMENTS_COUNT) ? commentCountOpenElement.textContent = COMMENTS_COUNT : commentCountOpenElement.textContent = getItem.comments.length;
     commentListElement.innerHTML = '';
     renderComment(postCommentsElements.splice(0,COMMENTS_COUNT));
