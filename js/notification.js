@@ -59,7 +59,7 @@ const onSuccessModal = () => {
   document.body.addEventListener('keydown', closeFromKeyboard);
 };
 
-const attentionMsg = (errorMsg) => {
+const showAttentionMsg = (errorMsg) => {
   const errorElement = document.createElement('div');
   const errorBtn = document.createElement('button');
   errorBtn.classList.add('error__button');
@@ -71,4 +71,4 @@ const attentionMsg = (errorMsg) => {
   errorBtn.addEventListener('click', () => errorElement.remove());
 };
 
-export {onErrorModal,onSuccessModal,attentionMsg};
+export {onErrorModal,onSuccessModal,showAttentionMsg};
