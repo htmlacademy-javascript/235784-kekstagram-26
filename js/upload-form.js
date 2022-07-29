@@ -16,6 +16,7 @@ const previewPicturesElement = document.querySelector('.img-upload__preview-imag
 const effectPreviewElement = document.querySelectorAll('.effects__preview');
 const previewImageElement = document.querySelector('.img-upload__preview img');
 const effectsRadioElement = document.querySelector('.effects__radio');
+const filterCountElement = document.querySelector('.img-upload__effect-level');
 
 const onCloseFromEscape = (evt) => {
   if(checkEscapeEnter(evt)) {
@@ -41,6 +42,7 @@ function closeModalHandler() {
   validateTextCommentElement.value = '';
   validateTagElement.value = '';
   clearEffects(previewImageElement);
+  filterCountElement.classList.add('hidden');
   effectsRadioElement.checked = true;
 }
 
